@@ -3,11 +3,13 @@ package courier.create;
 import http.CourierClient;
 import io.qameta.allure.Allure;
 import io.qameta.allure.junit4.DisplayName;
+import org.apache.http.HttpStatus;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import util.FakerData;
 
+import static org.apache.http.HttpStatus.SC_BAD_REQUEST;
 import static org.hamcrest.Matchers.equalTo;
 
 @DisplayName("Create courier")
@@ -44,7 +46,7 @@ public class CreateCourierErrorMsgTest {
         var response = COURIER_CLIENT.createCourier(login, password, firstName);
         Allure.step("Проверка наличия в теле соответствующей ошибки и status code");
         response.then()
-                .assertThat().statusCode(400)
+                .assertThat().statusCode(SC_BAD_REQUEST)
                 .assertThat().body("message", equalTo("Недостаточно данных для создания учетной записи"));
     }
 }

@@ -3,10 +3,12 @@ package courier.create;
 import http.CourierClient;
 import io.qameta.allure.Allure;
 import io.qameta.allure.junit4.DisplayName;
+import org.apache.http.HttpStatus;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.apache.http.HttpStatus.SC_CREATED;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static util.FakerData.*;
@@ -45,14 +47,14 @@ public class CreateCourierTests {
     public void checkCreateCourierFields() {
         var response = COURIER_CLIENT.createCourier(login, password, firstName);
         Allure.step("Проверка status code ответа");
-        response.then().assertThat().statusCode(201);
+        response.then().assertThat().statusCode(SC_CREATED);
     }
 
     @Test
     @DisplayName("Запрос создания курьера возвращает корректный статус запроса")
     public void checkStatusResponse() {
         var response = COURIER_CLIENT.createCourier(login, password, firstName);
-        response.then().assertThat().statusCode(201);
+        response.then().assertThat().statusCode(SC_CREATED);
     }
 
     @Test

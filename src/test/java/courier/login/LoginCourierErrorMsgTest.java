@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import static org.apache.http.HttpStatus.SC_NOT_FOUND;
 import static org.hamcrest.Matchers.equalTo;
 import static util.FakerData.*;
 
@@ -56,7 +57,7 @@ public class LoginCourierErrorMsgTest {
         Response response = COURIER_CLIENT.loginCourier(authLogin, authPassword);
         Allure.step("Проверка ответа на содержание соответствующей ошибки");
         response.then()
-                .assertThat().statusCode(equalTo(404))
+                .assertThat().statusCode(equalTo(SC_NOT_FOUND))
                 .assertThat().body("message", equalTo("Учетная запись не найдена"));
     }
 }

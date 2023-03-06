@@ -5,8 +5,10 @@ import http.model.LoginCourierRequest;
 import http.model.LoginCourierResponse;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
 
 import static io.restassured.RestAssured.given;
+import static org.apache.http.HttpStatus.*;
 
 public class CourierClient extends RestApiClient {
     private final String COURIER_PATH = "/api/v1/courier";
@@ -54,7 +56,7 @@ public class CourierClient extends RestApiClient {
             System.out.println("Received response: " + response.asString());
             response.then()
                     .assertThat()
-                    .statusCode(200);
+                    .statusCode(SC_CREATED);
         } else {
             throw new RuntimeException("Id of courier is null, so nothing to delete!");
         }

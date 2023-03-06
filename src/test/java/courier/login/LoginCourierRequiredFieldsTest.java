@@ -4,6 +4,7 @@ import http.CourierClient;
 import io.qameta.allure.Allure;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -54,7 +55,7 @@ public class LoginCourierRequiredFieldsTest {
         Response response = courierClient.loginCourier(authLogin, authPassword);
         Allure.step("Проверка ответа на содержание соответствующей ошибки",
                 () -> response.then()
-                        .assertThat().statusCode(equalTo(400))
+                        .assertThat().statusCode(equalTo(HttpStatus.SC_BAD_REQUEST))
                         .assertThat().body("message", equalTo("Недостаточно данных для входа"))
         );
     }
